@@ -1,5 +1,6 @@
 import Foundation
 import Capacitor
+import AdSupport
 import AppTrackingTransparency
 
 /**
@@ -28,8 +29,19 @@ public class AppTrackingTransparencyPlugin: CAPPlugin {
                     let status = await ATTrackingManager.requestTrackingAuthorization()
                     if status == .denied, ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
                         debugPrint("iOS 17.4 ATT bug detected")
-                        for await _ in await NotificationCenter.default.notifications(named: UIApplication.didBecomeActiveNotification) {
-                            requestPermission(call)
+                        if #available(iOS 15, *) {
+                            for await _ in await NotificationCenter.default.notifications(
+                                named: UIApplication.didBecomeActiveNotification) {
+                                requestPermission(call)
+                            }
+                        } else {
+                            // Fallback on earlier versions
+                            await NotificationCenter.default.addObserver(
+                                                   forName: UIApplication.didBecomeActiveNotification,
+                                                   object: nil,
+                                                   queue: .main) { [self] _ in
+                                                       requestPermission(call)
+                                                   }
                         }
                     } else {
                         let advertising = ASIdentifierManager.init().advertisingIdentifier.uuidString
