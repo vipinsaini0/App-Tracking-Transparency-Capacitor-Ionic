@@ -1,4 +1,4 @@
-# app-tracking-transparency-capacitor-ionic
+# App Tracking Transparency Capacitor Ionic Plugin
 
 <a href="https://www.npmjs.com/package/app-tracking-transparency-capacitor-ionic"><img src="https://img.shields.io/npm/l/app-tracking-transparency-capacitor-ionic?style=flat-square" /></a>
 <a href="https://www.npmjs.com/package/app-tracking-transparency-capacitor-ionic"><img src="https://img.shields.io/npm/dw/app-tracking-transparency-capacitor-ionic?style=flat-square" /></a>
